@@ -1,0 +1,56 @@
+class Solution {
+
+    public ListNode middle(ListNode head){
+    ListNode fast=head;
+    ListNode slow=head;
+    while(fast.next!=null&&fast.next.next!=null){
+        fast=fast.next.next;
+        slow=slow.next;
+    }
+    return slow;
+ }
+
+    public ListNode merge(ListNode temp1,ListNode temp2) {
+
+        ListNode ans= new ListNode(-1);
+        ListNode temp=ans;
+        
+
+        while(temp1!=null&&temp2!=null){
+            
+            if(temp1.val>temp2.val){
+                temp.next=temp2;
+                temp2=temp2.next;
+            } 
+            else{
+                temp.next=temp1;
+                temp1=temp1.next;
+            } 
+            temp=temp.next;
+
+        }
+         if (temp1 != null)temp.next = temp1;
+
+         if (temp2 != null) temp.next = temp2;
+
+        return ans.next;
+       
+    
+}
+
+
+    public ListNode sortList(ListNode head) {
+         if (head == null || head.next == null)
+        return head;
+
+    ListNode mid = middle(head);
+
+    ListNode rightHead = mid.next;
+    mid.next = null;
+
+    ListNode left = sortList(head);
+    ListNode right = sortList(rightHead);
+
+    return merge(left, right);
+    }
+}
