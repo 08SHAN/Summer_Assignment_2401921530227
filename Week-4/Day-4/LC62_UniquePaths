@@ -1,0 +1,21 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int dp[][]=new int[m+1][n+1];
+        for(int i=0;i<=m;i++){
+            for(int j=0;j<=n;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return countpaths(0,0,dp,m,n);
+    }
+
+    public int countpaths(int row,int col,int[][] dp,Integer m,Integer n){
+        if(row>=m||col>=n) return 0;
+        if(row==m-1||col==n-1) return 1;
+        if(dp[row][col]!=-1) return dp[row][col];
+        int rightways=countpaths(row,col+1,dp,m,n);
+        int downways=countpaths(row+1,col,dp,m,n);
+        return dp[row][col]=rightways+downways;
+
+    }
+}
